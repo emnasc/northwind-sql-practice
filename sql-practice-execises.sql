@@ -26,4 +26,19 @@ select OrderID, CustomerID, ShipCountry from Orders where ShipCountry in ('Franc
 select OrderID, CustomerID, ShipCountry from Orders where ShipCountry in ('Brazil', 'Mexico', 'Argentina', 'Venezuela');
 
 --Ex. 10
-select FirstName, LastName, Title, BirthDate from Employees order by BirthDate
+select FirstName, LastName, Title, BirthDate from Employees order by BirthDate;
+
+--Ex. 11
+select FirstName, LastName, Title, convert(date, BirthDate, 23) from Employees order by BirthDate;
+
+--Ex. 12
+select FirstName, LastName, concat(FirstName, ' ', LastName) as FullName from Employees;
+
+--Ex. 13
+select OrderId, ProductID, UnitPrice, Quantity, (UnitPrice * Quantity) as TotalPrice from OrderDetails;
+
+--Ex. 14
+select count(CustomerID) as TotalCustomers from Customers;
+
+--Ex. 15
+select top(1) OrderDate from Orders order by OrderDate asc;
