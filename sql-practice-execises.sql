@@ -1,44 +1,95 @@
 --Ex. 1
-select * from shippers;
+SELECT *
+  FROM shippers;
 
 --Ex. 2
-select CategoryName, Description from Categories;
+SELECT  CategoryName
+       ,Description
+  FROM Categories;
 
 --Ex. 3
-select FirstName, LastName, HireDate from Employees where Title = 'Sales Representative';
+SELECT  FirstName
+       ,LastName
+       ,HireDate
+  FROM Employees
+ WHERE Title = 'Sales Representative';
 
 --Ex. 4
-select FirstName, LastName, HireDate from Employees where Title = 'Sales Representative' and Country = 'USA';
+SELECT  FirstName
+       ,LastName
+	   ,HireDate
+  FROM Employees
+ WHERE Title = 'Sales Representative'
+   AND Country = 'USA';
 
 --Ex. 5
-select OrderId, OrderDate from Orders where EmployeeID = 5;
+SELECT  OrderId
+       ,OrderDate
+  FROM Orders
+ WHERE EmployeeID = 5;
 
 --Ex. 6
-select SupplierID, ContactName, ContactTitle from Suppliers where ContactTitle != 'Marketing Manager';
+SELECT  SupplierID
+       ,ContactName
+	   ,ContactTitle
+  FROM Suppliers
+ WHERE ContactTitle != 'Marketing Manager';
 
 --Ex. 7
-select ProductID, ProductName from Products where ProductName like '%queso%';
+SELECT  ProductID 
+       ,ProductName
+  FROM Products
+ WHERE ProductName like '%queso%';
 
 --Ex. 8
-select OrderID, CustomerID, ShipCountry from Orders where ShipCountry in ('France', 'Belgium');
+SELECT  OrderID
+       ,CustomerID
+	   ,ShipCountry
+  FROM Orders
+ WHERE ShipCountry IN ('France', 'Belgium');
 
 --Ex. 9
-select OrderID, CustomerID, ShipCountry from Orders where ShipCountry in ('Brazil', 'Mexico', 'Argentina', 'Venezuela');
+SELECT  OrderID
+       ,CustomerID
+       ,ShipCountry
+  FROM Orders
+ WHERE ShipCountry IN ('Brazil', 'Mexico', 'Argentina', 'Venezuela');
 
 --Ex. 10
-select FirstName, LastName, Title, BirthDate from Employees order by BirthDate;
+SELECT  FirstName
+       ,LastName
+       ,Title
+       ,BirthDate
+  FROM Employees
+ ORDER BY BirthDate;
 
 --Ex. 11
-select FirstName, LastName, Title, convert(date, BirthDate, 23) from Employees order by BirthDate;
+SELECT  FirstName
+       ,LastName
+	   ,Title
+	   ,CONVERT(DATE, BirthDate, 23)
+  FROM Employees
+ ORDER BY BirthDate;
 
 --Ex. 12
-select FirstName, LastName, concat(FirstName, ' ', LastName) as FullName from Employees;
+SELECT  FirstName
+       ,LastName
+	   ,CONCAT(FirstName, ' ', LastName) AS FullName
+  FROM Employees;
 
 --Ex. 13
-select OrderId, ProductID, UnitPrice, Quantity, (UnitPrice * Quantity) as TotalPrice from OrderDetails;
+SELECT  OrderId
+       ,ProductID
+	   ,UnitPrice
+	   ,Quantity
+	   ,(UnitPrice * Quantity) AS TotalPrice
+  FROM OrderDetails;
 
 --Ex. 14
-select count(CustomerID) as TotalCustomers from Customers;
+SELECT COUNT(CustomerID) AS TotalCustomers
+  FROM Customers;
 
 --Ex. 15
-select top(1) OrderDate from Orders order by OrderDate asc;
+SELECT TOP(1) OrderDate
+  FROM Orders
+ ORDER BY OrderDate ASC;
