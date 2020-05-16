@@ -20,7 +20,7 @@ SELECT  FirstName
 	   ,HireDate
   FROM Employees
  WHERE Title = 'Sales Representative'
-   AND Country = 'USA';
+       AND Country = 'USA';
 
 --Ex. 5
 SELECT  OrderId
@@ -93,3 +93,108 @@ SELECT COUNT(CustomerID) AS TotalCustomers
 SELECT TOP(1) OrderDate
   FROM Orders
  ORDER BY OrderDate ASC;
+
+--Ex. 16
+SELECT Country
+  FROM Customers
+ GROUP BY Country;
+
+--Ex. 17
+SELECT  ContactTitle
+       ,COUNT(ContactTitle) AS TotalCountTitle
+  FROM Customers
+ GROUP BY ContactTitle
+ ORDER BY TotalCountTitle DESC;
+
+ --Ex. 18
+SELECT  P.ProductID
+       ,P.ProductName
+       ,S.CompanyName
+  FROM Products AS P
+  JOIN Suppliers AS S
+    ON S.SupplierID = P.SupplierID
+ ORDER BY P.ProductID;
+
+--Ex. 19
+SELECT  O.OrderID
+       ,Convert(Date, O.OrderDate, 23) AS OrderDate
+	   ,S.CompanyName
+  FROM Orders AS O
+  Join Shippers AS S
+    ON S.ShipperID = O.ShipVia
+ WHERE O.OrderID < 10300
+ ORDER BY O.OrderID;
+
+--Ex. 20
+SELECT  C.CategoryName
+       ,COUNT(P.CategoryID) AS TotalProducts
+  FROM Categories AS C
+  JOIN Products AS P
+    ON P.CategoryID = C.CategoryID
+ GROUP BY C.CategoryName
+ ORDER BY TotalProducts DESC;
+
+--Ex. 21
+SELECT  Country
+       ,City
+	   ,COUNT(CustomerID) AS TotalCustomers
+  FROM Customers
+ GROUP BY Country, City
+ ORDER BY TotalCustomers DESC;
+
+--Ex. 22
+SELECT  ProductID
+       ,ProductName
+	   ,UnitsInStock
+	   ,ReorderLevel
+  FROM Products
+ WHERE UnitsInStock < ReorderLevel
+ ORDER BY ProductID;
+
+--Ex. 23
+SELECT  ProductID
+       ,ProductName
+	   ,UnitsInStock
+	   ,UnitsOnOrder
+	   ,ReorderLevel
+	   ,Discontinued
+  FROM Products
+ WHERE (UnitsInStock + UnitsOnOrder) <= ReorderLevel
+       AND Discontinued = 0
+ ORDER BY ProductID;
+
+--Ex. 24
+SELECT  CustomerID
+       ,CompanyName
+	   ,Region
+ FROM Customers
+ ORDER BY CASE
+			WHEN Region IS NULL THEN 1
+			ELSE 0
+		  END
+          ,Region
+		  ,CustomerID;
+
+--Ex. 25
+SELECT  TOP(3) ShipCountry
+       ,AVG(Freight) AS AverageFreight
+  FROM Orders
+ GROUP BY ShipCountry
+ ORDER BY AverageFreight DESC;
+
+--Ex. 26
+SELECT  TOP(3) ShipCountry
+       ,AVG(Freight) AS AverageFreight
+  FROM Orders
+  WHERE YEAR(OrderDate) = '2015'
+ GROUP BY ShipCountry
+ ORDER BY AverageFreight DESC;
+
+--Ex. 27
+/*
+The statement presented in the book uses the between clause, 
+which assumes the time 00:00:00 on December 31 2015. Because 
+of this, any freight registered later that day is not considered. 
+Since my implementation only looks at the year of the freight, it 
+doesn't have this problem.
+*/ 
