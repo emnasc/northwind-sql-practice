@@ -197,4 +197,50 @@ which assumes the time 00:00:00 on December 31 2015. Because
 of this, any freight registered later that day is not considered. 
 Since my implementation only looks at the year of the freight, it 
 doesn't have this problem.
-*/ 
+*/
+
+--Ex. 28
+SELECT  TOP(3) ShipCountry
+       ,AVG(Freight) AS AverageFreight
+  FROM Orders
+  WHERE OrderDate BETWEEN (SELECT DATEADD(YEAR, -1, MAX(OrderDate))
+                             FROM Orders) 
+						  
+						  AND
+
+						  (SELECT MAX(OrderDate)
+						     FROM Orders)
+ GROUP BY ShipCountry
+ ORDER BY AverageFreight DESC;
+
+--Ex. 29
+SELECT  ORD.EmployeeID
+       ,EMP.LastName
+	   ,ODE.OrderID
+	   ,PRO.ProductName
+	   ,ODE.Quantity
+  FROM OrderDetails AS ODE
+  JOIN Orders AS ORD
+    ON ORD.OrderID = ODE.OrderID
+  JOIN Employees AS EMP
+    ON ORD.EmployeeID = EMP.EmployeeID
+  JOIN Products AS PRO
+    ON PRO.ProductID = ODE.ProductID
+ ORDER BY ODE.OrderID ASC;
+
+--Ex. 30
+SELECT  C.CustomerID AS Customer_CustomerID
+	   ,O.CustomerID AS Orders_CustomerID
+  FROM Customers AS C
+  LEFT JOIN Orders AS O
+	ON C.CustomerID = O.CustomerID
+ WHERE O.CustomerID IS NULL;
+
+--Ex. 31
+SELECT  C.CustomerID AS Customer
+       ,O.CustomerID AS [Order]
+  FROM Customers AS C
+  LEFT JOIN Orders AS O
+    ON C.CustomerID = O.CustomerID
+       AND O.EmployeeID = 4
+ WHERE O.CustomerID IS NULL;
